@@ -8,6 +8,7 @@ fn main() {
 #[component]
 fn App() -> impl IntoView {
     let (count, set_count) = signal(0);
+    let double_count = move || count.get() * 2;
     
     view! {
         <button
@@ -20,7 +21,15 @@ fn App() -> impl IntoView {
         </button>
         <p>
             "Double count:"
-            {move || count.get() * 2}
+            {double_count}
         </p>
+        <progress
+            max="50"
+            value=count
+        />
+        <progress
+            max="50"
+            value=double_count
+        />
     }
 }
