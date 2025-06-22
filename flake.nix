@@ -11,11 +11,6 @@
       url = "github:nix-community/fenix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    naersk = {
-      url = "github:nix-community/naersk";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs = {
@@ -23,7 +18,6 @@
     treefmt-nix,
     nixpkgs,
     fenix,
-    naersk,
     ...
   }:
     flake-utils.lib.eachDefaultSystem (system: let
@@ -34,6 +28,7 @@
 
       target-names = [
         "x86_64-unknown-linux-gnu"
+        "wasm32-unknown-unknown"
       ];
       toolchain = with fenix.packages.${system};
         combine ([
@@ -45,22 +40,28 @@
               targets.${target}.stable.rust-std
             ])
             target-names)));
+
+      dependencies = with pkgs; [
+        nodejs
+        trunk
+        dart-sass
+        toolchain
+      ];
     in {
       formatter = treefmt.config.build.wrapper;
 
-      packages.default =
-        (naersk.lib.${system}.override {
-          cargo = toolchain;
-          rustc = toolchain;
-        }).buildPackage {
-          src = ./.;
-        };
+      packages.default = pkgs.writeShellApplication {
+        name = "resume_page";
+        runtimeInputs = dependencies;
+        text = ''
+          cd frontend && trunk build && cd ..
+          cargo run --bin backend
+        '';
+      };
 
       devShells.default = with pkgs;
         mkShell {
-          packages = [
-            toolchain
-          ];
+          packages = dependencies;
         };
     });
 }
