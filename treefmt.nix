@@ -5,6 +5,7 @@
     alejandra.enable = true;
     deadnix.enable = true;
     statix.enable = true;
+    biome.enable = true;
     rustfmt.enable = true;
     leptosfmt.enable = true;
   };
