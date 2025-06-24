@@ -1,6 +1,9 @@
 use leptos::prelude::*;
 
-use crate::footer::Footer;
+use crate::widgets::{
+    button::ButtonBorder,
+    footer::Footer
+};
 
 #[component]
 fn AboutMe() -> impl IntoView {
@@ -21,7 +24,7 @@ fn AboutMe() -> impl IntoView {
                 <div class="absolute left-[40%] -top-6 md:-left-16  lg:top-0 md:top-6 rotate-0 md:rotate-[-90deg] text-sm tracking-widest">
                     <div class="flex items-center justify-center gap-2">
                         <div class="w-16 h-[2px] bg-white"></div>
-                        <p>MORE ABOUT</p>
+                        <p>"MORE ABOUT"</p>
                     </div>
                 </div>
 
@@ -40,12 +43,10 @@ fn AboutMe() -> impl IntoView {
 
                 // <!-- Buttons -->
                 <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                    <a
-                        href="/projects"
-                        class="border border-tertiary text-white font-semibold py-2 px-4 rounded-lg hover:bg-tertiary/10 text-center"
-                    >
-                        "See Projects"
-                    </a>
+                    <ButtonBorder 
+                        link="/projects".to_string()
+                        label="See Projects".to_string()
+                    />
                 </div>
             </div>
         </section>

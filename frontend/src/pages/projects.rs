@@ -1,6 +1,6 @@
 use leptos::prelude::*;
 
-use crate::footer::Footer;
+use crate::widgets::footer::Footer;
 
 #[component]
 fn ProjectDisplay(

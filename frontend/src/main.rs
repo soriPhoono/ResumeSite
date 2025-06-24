@@ -1,15 +1,10 @@
-mod about;
-mod footer;
-mod home;
-mod projects;
+mod pages;
+mod widgets;
 
 use leptos::prelude::*;
-use leptos_router::components::*;
-use leptos_router::path;
+use leptos_router::{components::*, path};
 
-use about::About;
-use home::Home;
-use projects::Projects;
+use pages::{about::About, home::Home, projects::Projects};
 
 fn main() {
     console_error_panic_hook::set_once();
@@ -43,8 +38,8 @@ fn App() -> impl IntoView {
             <main>
                 <Routes fallback=|| "Not found.">
                     <Route path=path!("/") view=Home />
-                    <Route path=path!("/about") view=About />
                     <Route path=path!("/projects") view=Projects />
+                    <Route path=path!("/about") view=About />
                 </Routes>
             </main>
         </Router>
