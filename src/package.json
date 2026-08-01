@@ -1,0 +1,32 @@
+{
+	"name": "src",
+	"version": "0.0.0",
+	"private": true,
+	"scripts": {
+		"build": "pnpm run build:css && pnpm run build:js",
+		"build:css": "tailwindcss -i ./styles/app.css -o ./public/styles.css --minify",
+		"build:js": "esbuild client/main.ts --bundle --outfile=public/main.js --minify --target=es2022",
+		"dev:css": "tailwindcss -i ./styles/app.css -o ./public/styles.css --watch",
+		"dev:js": "esbuild client/main.ts --bundle --outfile=public/main.js --watch",
+		"deploy": "pnpm run build && wrangler deploy",
+		"dev": "concurrently \"pnpm run dev:css\" \"pnpm run dev:js\" \"wrangler dev\"",
+		"start": "pnpm run dev",
+		"test": "vitest",
+		"cf-typegen": "wrangler types"
+	},
+	"dependencies": {
+		"three": "^0.174.0"
+	},
+	"devDependencies": {
+		"@cloudflare/vitest-pool-workers": "^0.12.4",
+		"@tailwindcss/cli": "^4.0.0",
+		"@types/node": "^26.1.2",
+		"@types/three": "^0.174.0",
+		"concurrently": "^9.1.2",
+		"esbuild": "^0.25.0",
+		"tailwindcss": "^4.0.0",
+		"typescript": "^5.5.2",
+		"vitest": "~3.2.0",
+		"wrangler": "^4.118.0"
+	}
+}
